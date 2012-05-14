@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NBRK Rates</string>
+    <string name="serviceURL">http://nationalbank.kz/rss/rates.xml</string>
+</resources>
