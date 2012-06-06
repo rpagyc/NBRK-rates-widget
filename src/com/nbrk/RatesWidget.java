@@ -79,7 +79,7 @@ public class RatesWidget extends AppWidgetProvider {
             ratesView.addView(R.id.widget_layout, ratesViewItem);
         }
 
-        ratesView.setOnClickPendingIntent(R.id.ratesWidget, createPendingIntent(context));
+        ratesView.setOnClickPendingIntent(R.id.widget_layout, createPendingIntent(context));
 
         ComponentName thisAppWidget = new ComponentName(context.getPackageName(),getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
