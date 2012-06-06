@@ -1,5 +1,9 @@
 package com.nbrk;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created with IntelliJ IDEA.
  * User: X120e
@@ -47,6 +51,17 @@ public class Rates {
 
     public void setIndex(String index) {
         this.index = index;
+    }
+
+    public Integer getFlag(String currency) {
+        if (currency.equalsIgnoreCase("RUR")){
+            return R.drawable.rur;
+        } else if (currency.equalsIgnoreCase("USD")){
+            return R.drawable.usd;
+        } else if (currency.equalsIgnoreCase("EUR")){
+            return R.drawable.eur;
+        }
+        return null;
     }
 
 }

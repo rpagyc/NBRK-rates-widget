@@ -12,20 +12,24 @@ public final class R {
     }
     public static final class drawable {
         public static final int down=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int up=0x7f020002;
+        public static final int eur=0x7f020001;
+        public static final int icon=0x7f020002;
+        public static final int rur=0x7f020003;
+        public static final int up=0x7f020004;
+        public static final int usd=0x7f020005;
     }
     public static final class id {
-        public static final int arrow=0x7f060003;
-        public static final int currencyName=0x7f060001;
-        public static final int linearLayout3=0x7f060005;
+        public static final int arrow=0x7f060004;
+        public static final int currencyName=0x7f060002;
+        public static final int flag=0x7f060001;
+        public static final int linearLayout3=0x7f060006;
         public static final int ratesFrameLayout=0x7f060000;
-        public static final int ratesWidget=0x7f060004;
-        public static final int sellRate=0x7f060002;
-        public static final int textView1=0x7f060006;
-        public static final int textView2=0x7f060007;
-        public static final int textView3=0x7f060008;
-        public static final int widget_layout=0x7f060009;
+        public static final int ratesWidget=0x7f060005;
+        public static final int sellRate=0x7f060003;
+        public static final int textView1=0x7f060007;
+        public static final int textView2=0x7f060008;
+        public static final int textView3=0x7f060009;
+        public static final int widget_layout=0x7f06000a;
     }
     public static final class layout {
         public static final int rates_frame_layout=0x7f030000;

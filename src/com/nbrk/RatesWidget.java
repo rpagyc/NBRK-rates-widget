@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -71,6 +72,7 @@ public class RatesWidget extends AppWidgetProvider {
             } else {
                 ratesViewItem.setImageViewResource(R.id.arrow,R.drawable.down);
             }
+            ratesViewItem.setImageViewResource(R.id.flag,rates.getFlag(rates.getCurrency()));
             ratesViewItem.setTextViewText(R.id.currencyName, rates.getCurrency());
             ratesViewItem.setTextViewText(R.id.sellRate,rates.getRate());
 
