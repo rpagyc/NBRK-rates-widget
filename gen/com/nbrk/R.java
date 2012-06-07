@@ -22,9 +22,11 @@ public final class R {
         public static final int arrow=0x7f060004;
         public static final int currencyName=0x7f060002;
         public static final int flag=0x7f060001;
+        public static final int main_layout=0x7f060005;
+        public static final int message=0x7f060006;
         public static final int ratesFrameLayout=0x7f060000;
         public static final int sellRate=0x7f060003;
-        public static final int widget_layout=0x7f060005;
+        public static final int widget_layout=0x7f060007;
     }
     public static final class layout {
         public static final int rates_frame_layout=0x7f030000;
@@ -34,6 +36,7 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int currency=0x7f050002;
         public static final int index=0x7f050004;
+        public static final int noConnection=0x7f050005;
         public static final int rate=0x7f050003;
         public static final int serviceURL=0x7f050001;
     }

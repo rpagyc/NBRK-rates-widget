@@ -7,7 +7,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -62,7 +61,12 @@ public class RatesWidget extends AppWidgetProvider {
         Parser parser = new Parser();
         ArrayList<Rates> ratesList = parser.getRates(context.getResources().getString(R.string.serviceURL));
 
-        ratesView.removeAllViews(R.id.widget_layout);
+        if (ratesList.isEmpty()) {
+            ratesView.setTextViewText(R.id.message,context.getText(R.string.noConnection));
+        } else {
+            ratesView.setTextViewText(R.id.message,"");
+            ratesView.removeAllViews(R.id.widget_layout);
+        }
 
         for (Rates rates : ratesList) {
             Log.d("Curency", rates.getCurrency()+" "+rates.getRate()+" "+rates.getIndex());
@@ -79,7 +83,7 @@ public class RatesWidget extends AppWidgetProvider {
             ratesView.addView(R.id.widget_layout, ratesViewItem);
         }
 
-        ratesView.setOnClickPendingIntent(R.id.widget_layout, createPendingIntent(context));
+        ratesView.setOnClickPendingIntent(R.id.main_layout, createPendingIntent(context));
 
         ComponentName thisAppWidget = new ComponentName(context.getPackageName(),getClass().getName());
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

@@ -5,4 +5,5 @@
     <string name="currency">Currency</string>
     <string name="rate">Rate</string>
     <string name="index">Index</string>
+    <string name="noConnection">No connection...</string>
 </resources>
