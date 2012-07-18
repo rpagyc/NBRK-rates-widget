@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Курс Нацбанка</string>
+    <string name="app_name">Курс Валют НБРК</string>
     <string name="serviceURL">http://nationalbank.kz/rss/rates.xml</string>
     <string name="currency">Валюта</string>
     <string name="rate">Курс</string>

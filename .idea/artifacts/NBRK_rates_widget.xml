@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="NBRK-rates-widget">
+    <output-path>$PROJECT_DIR$/out/artifacts/NBRK_rates_widget</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyAlias" value="nbrk_widget_sig" />
+        <option name="keyPassword" value="aXl3dGJtZnRtcGl5aA==" />
+        <option name="keyStorePassword" value="cXdlMTIz" />
+        <option name="keyStoreUrl" value="file://c:/Program Files/Android/signature/android.keystore" />
+        <option name="proGuardCfgFileUrl" value="file://" />
+        <option name="signingMode" value="RELEASE_SIGNED" />
+      </options>
+    </properties>
+    <root id="archive" name="NBRK-rates-widget.apk">
+      <element id="android-final-package" facet="NBRK-rates-widget/android/Android" />
+    </root>
+  </artifact>
+</component>
