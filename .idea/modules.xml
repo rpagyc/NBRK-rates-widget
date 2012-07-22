@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../NBRK-rates/NBRK-rates.iml" filepath="$PROJECT_DIR$/../NBRK-rates/NBRK-rates.iml" />
       <module fileurl="file://$PROJECT_DIR$/NBRK-rates-widget.iml" filepath="$PROJECT_DIR$/NBRK-rates-widget.iml" />
     </modules>
   </component>
