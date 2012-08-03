@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:id="@+id/ratesFrameLayout"
               android:layout_height="wrap_content">
     <ImageView android:id="@+id/flag"
                android:layout_height="wrap_content"
-               android:layout_width="20dp"
+               android:layout_width="wrap_content"
+               android:layout_marginRight="5dp"
+               android:layout_marginLeft="5dp"
+               android:src="@drawable/rur"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
                android:layout_gravity="center"/>
     <TextView android:textColor="@android:color/white"
-              android:text="..."
+              android:text="RUR"
+              android:layout_marginRight="5dp"
+              android:textSize="15dp"
               android:id="@+id/currencyName"
+              android:layout_toRightOf="@+id/flag"
               android:layout_height="wrap_content"
-              android:layout_width="30dp"/>
+              android:layout_width="wrap_content"/>
     <TextView android:textColor="@android:color/white"
-              android:text="0.00"
+              android:text="4.53"
               android:id="@+id/sellRate"
+              android:layout_toLeftOf="@+id/arrow"
+              android:layout_marginRight="5dp"
+              android:textSize="15dp"
               android:layout_height="wrap_content"
-              android:layout_width="50dp"/>
+              android:layout_width="wrap_content"/>
     <ImageView android:id="@+id/arrow"
                android:layout_height="wrap_content"
                android:layout_width="wrap_content"
-               android:layout_gravity="center"/>
-</LinearLayout>
+               android:layout_marginRight="5dp"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:src="@drawable/up"/>
+</RelativeLayout>

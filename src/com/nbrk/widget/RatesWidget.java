@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import junit.framework.Assert;
@@ -112,7 +113,9 @@ public class RatesWidget extends AppWidgetProvider {
         @Override
         protected void onPostExecute(ArrayList<HashMap<String,String>> result) {
             super.onPostExecute(result);
-            ratesView.removeAllViews(R.id.widget_layout);
+
+            ratesView.removeAllViews(R.id.main_layout);
+
             for (HashMap<String, String> item:result) {
                 RemoteViews ratesViewItem = new RemoteViews(context.getPackageName(),R.layout.rates_frame_layout);
                 ratesViewItem.setTextViewText(R.id.currencyName, item.get(KEY_FC));
@@ -120,8 +123,9 @@ public class RatesWidget extends AppWidgetProvider {
                 ratesViewItem.setImageViewResource(R.id.flag,getDrawable(context,item.get(KEY_FC)));
                 ratesViewItem.setImageViewResource(R.id.arrow,getDrawable(context,item.get(KEY_INDEX)));
 
-                ratesView.addView(R.id.widget_layout, ratesViewItem);
+                ratesView.addView(R.id.main_layout, ratesViewItem);
             }
+
             ratesView.setOnClickPendingIntent(R.id.main_layout, createPendingIntent(context));
 
             ComponentName thisAppWidget = new ComponentName(context,RatesWidget.class);
@@ -135,11 +139,12 @@ public class RatesWidget extends AppWidgetProvider {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
-            ratesView.setTextViewText(R.id.message,"");
             new HttpQuery(context).execute(URL);
         } else {
-            ratesView.setTextViewText(R.id.message,context.getText(R.string.noConnection));
-            //Toast.makeText(context, "No network connection", Toast.LENGTH_LONG).show();
+            //RemoteViews messageView = new RemoteViews(context.getPackageName(),R.layout.message_layout);
+            //ratesView.removeAllViews(R.id.main_layout);
+            //ratesView.addView(R.id.main_layout, messageView);
+            Toast.makeText(context, R.string.noConnection, Toast.LENGTH_LONG).show();
         }
     }
 
