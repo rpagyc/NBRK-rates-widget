@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import junit.framework.Assert;
@@ -87,24 +86,28 @@ public class RatesWidget extends AppWidgetProvider {
 
         @Override
         protected ArrayList<HashMap<String, String>> doInBackground(String... urls) {
+
             String xml = parser.getXMLFromUrl(urls[0]);
-            doc = parser.getDomElement(xml);
 
-            NodeList nl = doc.getElementsByTagName("item");
+            if(xml.startsWith("<?xml")) {
 
-            for (int i=0; i<nl.getLength(); i++) {
+                doc = parser.getDomElement(xml);
+                NodeList nl = doc.getElementsByTagName("item");
 
-                HashMap<String, String> map = new HashMap<String, String>();
-                Element e = (Element) nl.item(i);
+                for (int i=0; i<nl.getLength(); i++) {
 
-                //Log.d("Curency", parser.getValue(e, KEY_FC)+" "+parser.getValue(e, KEY_PRICE)+" "+parser.getValue(e, KEY_INDEX));
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    Element e = (Element) nl.item(i);
 
-                map.put(KEY_FC, parser.getValue(e, KEY_FC));
-                map.put(KEY_PRICE, parser.getValue(e, KEY_PRICE));
-                map.put(KEY_INDEX, parser.getValue(e, KEY_INDEX));
-                map.put(KEY_PUBDATE, parser.getValue(e, KEY_PUBDATE));
+                    //Log.d("Curency", parser.getValue(e, KEY_FC)+" "+parser.getValue(e, KEY_PRICE)+" "+parser.getValue(e, KEY_INDEX));
 
-                rates.add(map);
+                    map.put(KEY_FC, parser.getValue(e, KEY_FC));
+                    map.put(KEY_PRICE, parser.getValue(e, KEY_PRICE));
+                    map.put(KEY_INDEX, parser.getValue(e, KEY_INDEX));
+                    map.put(KEY_PUBDATE, parser.getValue(e, KEY_PUBDATE));
+
+                    rates.add(map);
+                }
             }
 
             return rates;
@@ -113,24 +116,27 @@ public class RatesWidget extends AppWidgetProvider {
         @Override
         protected void onPostExecute(ArrayList<HashMap<String,String>> result) {
             super.onPostExecute(result);
+            if(!result.isEmpty()) {
+                ratesView.removeAllViews(R.id.main_layout);
 
-            ratesView.removeAllViews(R.id.main_layout);
+                for (HashMap<String, String> item:result) {
+                    RemoteViews ratesViewItem = new RemoteViews(context.getPackageName(),R.layout.rates_frame_layout);
+                    ratesViewItem.setTextViewText(R.id.currencyName, item.get(KEY_FC));
+                    ratesViewItem.setTextViewText(R.id.sellRate, item.get(KEY_PRICE));
+                    ratesViewItem.setImageViewResource(R.id.flag,getDrawable(context,item.get(KEY_FC)));
+                    ratesViewItem.setImageViewResource(R.id.arrow,getDrawable(context,item.get(KEY_INDEX)));
 
-            for (HashMap<String, String> item:result) {
-                RemoteViews ratesViewItem = new RemoteViews(context.getPackageName(),R.layout.rates_frame_layout);
-                ratesViewItem.setTextViewText(R.id.currencyName, item.get(KEY_FC));
-                ratesViewItem.setTextViewText(R.id.sellRate, item.get(KEY_PRICE));
-                ratesViewItem.setImageViewResource(R.id.flag,getDrawable(context,item.get(KEY_FC)));
-                ratesViewItem.setImageViewResource(R.id.arrow,getDrawable(context,item.get(KEY_INDEX)));
+                    ratesView.addView(R.id.main_layout, ratesViewItem);
+                }
 
-                ratesView.addView(R.id.main_layout, ratesViewItem);
+                ratesView.setOnClickPendingIntent(R.id.main_layout, createPendingIntent(context));
+
+                ComponentName thisAppWidget = new ComponentName(context,RatesWidget.class);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                appWidgetManager.updateAppWidget(thisAppWidget, ratesView);
+            } else {
+                Toast.makeText(context,R.string.no_data_received,Toast.LENGTH_LONG).show();
             }
-
-            ratesView.setOnClickPendingIntent(R.id.main_layout, createPendingIntent(context));
-
-            ComponentName thisAppWidget = new ComponentName(context,RatesWidget.class);
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            appWidgetManager.updateAppWidget(thisAppWidget, ratesView);
         }
     }
 

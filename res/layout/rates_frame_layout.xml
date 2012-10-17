@@ -11,23 +11,27 @@
                android:src="@drawable/rur"
                android:layout_alignParentLeft="true"
                android:layout_centerVertical="true"
-               android:layout_gravity="center"/>
+               android:layout_gravity="center"
+            />
     <TextView android:textColor="@android:color/white"
               android:text="RUR"
               android:layout_marginRight="5dp"
-              android:textSize="15dp"
               android:id="@+id/currencyName"
               android:layout_toRightOf="@+id/flag"
               android:layout_height="wrap_content"
-              android:layout_width="wrap_content"/>
+              android:layout_width="wrap_content"
+              android:layout_centerVertical="true"
+              android:textIsSelectable="false" android:textStyle="bold"
+              android:textSize="14sp"/>
     <TextView android:textColor="@android:color/white"
               android:text="4.53"
               android:id="@+id/sellRate"
               android:layout_toLeftOf="@+id/arrow"
               android:layout_marginRight="5dp"
-              android:textSize="15dp"
               android:layout_height="wrap_content"
-              android:layout_width="wrap_content"/>
+              android:layout_width="wrap_content"
+              android:layout_centerVertical="true" android:textStyle="bold"
+              android:textSize="14sp"/>
     <ImageView android:id="@+id/arrow"
                android:layout_height="wrap_content"
                android:layout_width="wrap_content"
