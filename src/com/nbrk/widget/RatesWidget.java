@@ -43,22 +43,22 @@ public class RatesWidget extends AppWidgetProvider {
     private PendingIntent createPendingIntent(Context context) {
         Intent intent = new Intent(context, RatesWidget.class);
         intent.setAction(ACTION_WIDGET_RECEIVER);
-        return PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(createPendingIntent(context));
     }
 
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC,
-                SystemClock.elapsedRealtime()+AlarmManager.INTERVAL_HOUR,
+                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
                 AlarmManager.INTERVAL_HOUR,
                 createPendingIntent(context));
     }
@@ -66,16 +66,16 @@ public class RatesWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if(intent.getAction().equals(ACTION_WIDGET_RECEIVER)) {
+        if (intent.getAction().equals(ACTION_WIDGET_RECEIVER)) {
             loadRates(context);
         }
     }
 
-    public class HttpQuery extends AsyncTask<String, String, ArrayList<HashMap<String,String>>> {
+    public class HttpQuery extends AsyncTask<String, String, ArrayList<HashMap<String, String>>> {
 
         private XMLParser parser;
         private Document doc;
-        private ArrayList<HashMap<String,String>> rates;
+        private ArrayList<HashMap<String, String>> rates;
         private Context context;
 
         public HttpQuery(Context context) {
@@ -89,12 +89,12 @@ public class RatesWidget extends AppWidgetProvider {
 
             String xml = parser.getXMLFromUrl(urls[0]);
 
-            if(xml.startsWith("<?xml")) {
+            if (xml.startsWith("<?xml")) {
 
                 doc = parser.getDomElement(xml);
                 NodeList nl = doc.getElementsByTagName("item");
 
-                for (int i=0; i<nl.getLength(); i++) {
+                for (int i = 0; i < nl.getLength(); i++) {
 
                     HashMap<String, String> map = new HashMap<String, String>();
                     Element e = (Element) nl.item(i);
@@ -114,34 +114,34 @@ public class RatesWidget extends AppWidgetProvider {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<HashMap<String,String>> result) {
+        protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
             super.onPostExecute(result);
-            if(!result.isEmpty()) {
+            if (!result.isEmpty()) {
                 ratesView.removeAllViews(R.id.main_layout);
 
-                for (HashMap<String, String> item:result) {
-                    RemoteViews ratesViewItem = new RemoteViews(context.getPackageName(),R.layout.rates_frame_layout);
+                for (HashMap<String, String> item : result) {
+                    RemoteViews ratesViewItem = new RemoteViews(context.getPackageName(), R.layout.rates_frame_layout);
                     ratesViewItem.setTextViewText(R.id.currencyName, item.get(KEY_FC));
                     ratesViewItem.setTextViewText(R.id.sellRate, item.get(KEY_PRICE));
-                    ratesViewItem.setImageViewResource(R.id.flag,getDrawable(context,item.get(KEY_FC)));
-                    ratesViewItem.setImageViewResource(R.id.arrow,getDrawable(context,item.get(KEY_INDEX)));
+                    ratesViewItem.setImageViewResource(R.id.flag, getDrawable(context, item.get(KEY_FC)));
+                    ratesViewItem.setImageViewResource(R.id.arrow, getDrawable(context, item.get(KEY_INDEX)));
 
                     ratesView.addView(R.id.main_layout, ratesViewItem);
                 }
 
                 ratesView.setOnClickPendingIntent(R.id.main_layout, createPendingIntent(context));
 
-                ComponentName thisAppWidget = new ComponentName(context,RatesWidget.class);
+                ComponentName thisAppWidget = new ComponentName(context, RatesWidget.class);
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 appWidgetManager.updateAppWidget(thisAppWidget, ratesView);
             } else {
-                Toast.makeText(context,R.string.no_data_received,Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.no_data_received, Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    public void loadRates(Context context){
-        ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public void loadRates(Context context) {
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
@@ -158,7 +158,7 @@ public class RatesWidget extends AppWidgetProvider {
         Assert.assertNotNull(context);
         Assert.assertNotNull(name);
         //Log.d("Flag: ", name + " " + context.getResources().getIdentifier(name,"drawable",context.getPackageName()));
-        return context.getResources().getIdentifier(name.toLowerCase(),"drawable",context.getPackageName());
+        return context.getResources().getIdentifier(name.toLowerCase(), "drawable", context.getPackageName());
     }
 
 }

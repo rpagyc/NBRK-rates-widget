@@ -31,10 +31,12 @@ import java.net.URL;
  * To change this template use File | Settings | File Templates.
  */
 public class XMLParser {
-    public XMLParser() {}
+    public XMLParser() {
+    }
 
     /**
      * Getting XML from URL making HTTP request
+     *
      * @param url String
      * @return String
      */
@@ -62,6 +64,7 @@ public class XMLParser {
 
     /**
      * Getting XML DOM element
+     *
      * @param xml
      * @return Document
      */
@@ -90,13 +93,14 @@ public class XMLParser {
 
     /**
      * Getting node value
+     *
      * @param element
      * @return String
      */
     public final String getElementValue(Node element) {
         Node child;
         if (element != null) {
-            if (element.hasChildNodes()){
+            if (element.hasChildNodes()) {
                 for (child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
                     if (child.getNodeType() == Node.TEXT_NODE) {
                         return child.getNodeValue();
@@ -109,8 +113,9 @@ public class XMLParser {
 
     /**
      * Getting node value
+     *
      * @param item node
-     * @param str String
+     * @param str  String
      * @return
      */
     public String getValue(Element item, String str) {
